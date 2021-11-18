@@ -4,4 +4,21 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>addempl</servlet-name>
+    <servlet-class>Servlets.AddEmployeeServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>loginempl</servlet-name>
+    <servlet-class>Servlets.LoginEmployeeServlet</servlet-class>
+  </servlet>
+
+  <!-- *********************************************************************** -->
+
+  <servlet-mapping>
+    <servlet-name>loginempl</servlet-name>
+    <url-pattern>/loginempl</url-pattern>
+  </servlet-mapping>
 </web-app>

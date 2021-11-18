@@ -1,0 +1,68 @@
+package Entities;
+
+import javax.persistence.*;
+import java.sql.Date;
+
+public class Ticket {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int t_id;                  //ID of the ticket
+
+    @ManyToOne
+    @JoinColumn(name = "empl_id")
+    private Employee empl;              //Employee making the request
+
+    private double amount;             //Amount of money being requested
+    private boolean pending;           //Whether the ticket has been resolved (accept / reject) or is still waiting
+    private String resolution_status;  //"rejected" if rejected by the manager, "approved" if approved
+    private Date resolution_date;      //Date timestamp of when the finance manager made the approval.
+
+    public int getT_id() {
+        return t_id;
+    }
+
+    public void setT_id(int t_id) {
+        this.t_id = t_id;
+    }
+
+    public Employee getEmpl() {
+        return empl;
+    }
+
+    public void setEmpl(Employee empl) {
+        this.empl = empl;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
+
+    public String getResolution_status() {
+        return resolution_status;
+    }
+
+    public void setResolution_status(String resolution_status) {
+        this.resolution_status = resolution_status;
+    }
+
+    public Date getResolution_date() {
+        return resolution_date;
+    }
+
+    public void setResolution_date(Date resolution_date) {
+        this.resolution_date = resolution_date;
+    }
+}
