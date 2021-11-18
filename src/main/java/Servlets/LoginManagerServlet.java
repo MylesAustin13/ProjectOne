@@ -1,10 +1,11 @@
 package Servlets;
 
-
 import DAOs.EmployeeDao;
 import DAOs.EmployeeDaoFactory;
-import DAOs.EmployeeDaoImpl;
+import DAOs.ManagerDao;
+import DAOs.ManagerDaoFactory;
 import Entities.Employee;
+import Entities.Manager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,9 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class LoginEmployeeServlet extends HttpServlet {
+public class LoginManagerServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        EmployeeDao empl_dao = EmployeeDaoFactory.getEmployeeDao();
+        ManagerDao man_dao = ManagerDaoFactory.getManagerDao();
 
 
         resp.setContentType("text/html");
@@ -27,7 +28,7 @@ public class LoginEmployeeServlet extends HttpServlet {
         String uname = req.getParameter("uname");
         String pass = req.getParameter("pass");
 
-        Employee e = empl_dao.getEmployeeByUsername(uname);
+        Manager m = man_dao.getManagerByUsername(uname);
 
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.html"); //Get ready to send the user back if they fail
@@ -38,25 +39,23 @@ public class LoginEmployeeServlet extends HttpServlet {
                 "        integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
         pw.println("</head>");
 
-        if(e == null){ //Username is wrong.
+        if(m == null){ //Username is wrong.
             pw.println("<h1 class='text-light  text-center'> Login Failed. </h1>");
 
         }
         else{ //Username is right!
-            if(e.getPassword().equals(pass)){ //Password is right!
+            if(m.getPassword().equals(pass)){ //Password is right!
                 HttpSession session = req.getSession(); //Create a new session
                 session.setAttribute("uname",uname);         //Set the name
-                session.setAttribute("email", e.getEmail()); //Set the email
-                session.setAttribute("empl_id", e.getEmpl_id()); //Set the id
-                requestDispatcher = req.getRequestDispatcher("ticket_creation.html"); //They succeeded! Change the dispatcher!
-                pw.println("<h1 class='text-center'> Welcome, " + e.getUsername() + "! </h1>");
+                session.setAttribute("email", m.getEmail()); //Set the email
+                session.setAttribute("man_id", m.getMan_id()); //Set the id
+                requestDispatcher = req.getRequestDispatcher("manager_choice.html"); //They succeeded! Change the dispatcher!
+                pw.println("<h1 class='text-center'> Welcome, " + m.getUsername() + "! </h1>");
             }
             else{ //Password is wrong.
                 pw.println("<h1 class='text-light  text-center'> Login Failed. </h1>");
             }
         }
         requestDispatcher.include(req, resp);
-
-
     }
 }

@@ -6,6 +6,11 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>Servlets.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>addempl</servlet-name>
     <servlet-class>Servlets.AddEmployeeServlet</servlet-class>
   </servlet>
@@ -15,10 +20,100 @@
     <servlet-class>Servlets.LoginEmployeeServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>addmana</servlet-name>
+    <servlet-class>Servlets.AddManagerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>loginmana</servlet-name>
+    <servlet-class>Servlets.LoginManagerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>addtix</servlet-name>
+    <servlet-class>Servlets.AddTicketServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>viewtix</servlet-name>
+    <servlet-class>Servlets.ViewPendingTicketsServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>viewalltix</servlet-name>
+    <servlet-class>Servlets.ViewAllPendingTicketsServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>viewresolvedtix</servlet-name>
+    <servlet-class>Servlets.ViewResolvedTicketsServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>apprtix</servlet-name>
+    <servlet-class>Servlets.ApproveTicketServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>rejtix</servlet-name>
+    <servlet-class>Servlets.RejectTicketServlet</servlet-class>
+  </servlet>
+
   <!-- *********************************************************************** -->
+
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>addempl</servlet-name>
+    <url-pattern>/addempl</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>loginempl</servlet-name>
     <url-pattern>/loginempl</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>addmana</servlet-name>
+    <url-pattern>/addmana</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>loginmana</servlet-name>
+    <url-pattern>/loginmana</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>addtix</servlet-name>
+    <url-pattern>/addtix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>viewtix</servlet-name>
+    <url-pattern>/viewtix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>viewalltix</servlet-name>
+    <url-pattern>/viewalltix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>viewresolvedtix</servlet-name>
+    <url-pattern>/viewresolvedtix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>apprtix</servlet-name>
+    <url-pattern>/apprtix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>rejtix</servlet-name>
+    <url-pattern>/rejtix</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -3,10 +3,11 @@ package Entities;
 import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int t_id;                  //ID of the ticket
 
     @ManyToOne
@@ -15,8 +16,18 @@ public class Ticket {
 
     private double amount;             //Amount of money being requested
     private boolean pending;           //Whether the ticket has been resolved (accept / reject) or is still waiting
-    private String resolution_status;  //"rejected" if rejected by the manager, "approved" if approved
+    private String resolution_status;  //"rejected" if rejected by the manager, "approved" if approved, otherwise still pending
     private Date resolution_date;      //Date timestamp of when the finance manager made the approval.
+
+    public Ticket(){
+
+    }
+
+    public Ticket(Employee empl, double amount) {
+        this.empl = empl;
+        this.amount = amount;
+        pending = true;
+    }
 
     public int getT_id() {
         return t_id;

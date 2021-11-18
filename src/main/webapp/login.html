@@ -13,7 +13,9 @@
 </head>
 
 <body class="bg-dark">
+   
 <div class="container border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50" id="employee">
+    <h1>Employee</h1>
     <form class="p-2" action="loginempl" method="post">
 
         <label class="text-left col-2">Employee Name</label>
@@ -27,8 +29,22 @@
         <input class="text-center" type="submit" value="Log In">
     </form>
 </div>
+    
+<div class="container border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50" id="manager">
+    <h1>Manager</h1>
+    <form class="p-2" action="loginmana" method="post">
 
+        <label class="text-left col-2">Manager Name</label>
+        <input class="text-center" type="text" name="uname" placeholder="Enter your username">
+        <br />
+        <label class="text-left col-2">Manager Password</label>
+        <input class="text-center" type="text" name="pass" placeholder="Enter your password">
+        <br />
+        <br />
 
+        <input class="text-center" type="submit" value="Log In">
+    </form>
+</div>
 
 </body>
 </body>

@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+    <a href="logout">Log Out</a>
+    <a href="viewalltix"> View all pending tickets</a>
+    <form class="p-2" action="viewtix" method="post">
+        <label class="text-left col-2">View Pending Tickets of Employee ID</label>
+        <input class="text-center" type="number" name="empl_id" placeholder="Enter the ID of the employee">
+        <br />
 
+        <input class="text-center" type="submit" value="Find Tickets">
+    </form>
+
+    <form class="p-2" action="viewresolvedtix" method="post">
+        <label class="text-left col-2">View Resolved Tickets of Employee ID</label>
+        <input class="text-center" type="number" name="empl_id" placeholder="Enter the ID of the employee">
+        <br />
+
+        <input class="text-center" type="submit" value="Find Tickets">
+    </form>
 </body>
 </html>

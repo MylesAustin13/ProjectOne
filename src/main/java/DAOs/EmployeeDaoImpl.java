@@ -88,7 +88,7 @@ public class EmployeeDaoImpl implements  EmployeeDao{
         //Set up a query, used named parameters for safety
         //Source: https://www.tutorialspoint.com/hibernate/hibernate_query_language.htm
 
-        String hql = "from employee e where e.empl_id = :employee_id";
+        String hql = "from Employee e where e.empl_id = :employee_id";
         Query query = session.createQuery(hql);
         query.setParameter("employee_id", empl_id);
         List<Employee> employees = query.getResultList();

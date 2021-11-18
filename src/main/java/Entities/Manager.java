@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class Manager {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int man_id;
 
 
