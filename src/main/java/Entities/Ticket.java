@@ -19,6 +19,25 @@ public class Ticket {
     private String resolution_status;  //"rejected" if rejected by the manager, "approved" if approved, otherwise still pending
     private Date resolution_date;      //Date timestamp of when the finance manager made the approval.
 
+    private String description = "";      //Additional notes on the reason for making this request
+    private String resolve_message = ""; //Additional notes on the reason the request was approved / denied.
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getResolve_message() {
+        return resolve_message;
+    }
+
+    public void setResolve_message(String resolve_message) {
+        this.resolve_message = resolve_message;
+    }
+
     public Ticket(){
 
     }

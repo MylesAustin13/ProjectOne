@@ -42,14 +42,22 @@ public class ViewOwnTicketsServlet extends HttpServlet {
         pw.println("<tr>");
         pw.println("<td scope='col'>Ticket ID</td>");
         pw.println("<td scope='col'>Value</td>");
+        pw.println("<td scope='col'>Description</td>");
         pw.println("</tr>");
         pw.println("</thead>");
         pw.println("<tbody>");
-        for( Ticket t : pending_tickets){
-            pw.println("<tr>");
-            pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
-            pw.println("<td> $" + t.getAmount() + "</td>");
-            pw.println("</tr>");
+        if(pending_tickets != null){
+            for( Ticket t : pending_tickets){
+                String desc = t.getDescription();
+                if(desc == null || desc.isEmpty()){
+                    desc = "N/A";
+                }
+                pw.println("<tr>");
+                pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
+                pw.println("<td> $" + t.getAmount() + "</td>");
+                pw.println("<td> " + desc + "</td>");
+                pw.println("</tr>");
+            }
         }
         pw.println("</tbody>");
         pw.println("</table>");
@@ -59,19 +67,34 @@ public class ViewOwnTicketsServlet extends HttpServlet {
         pw.println("<tr>");
         pw.println("<td scope='col'>ID</td>");
         pw.println("<td scope='col'>Value</td>");
+        pw.println("<td scope='col'>Description</td>");
         pw.println("<td scope='col'>Status</td>");
         pw.println("<td scope='col'>Resolution Date</td>");
+        pw.println("<td scope='col'>Comments from Manager</td>");
         pw.println("</tr>");
         pw.println("</thead>");
         pw.println("<tbody>");
-        for( Ticket t : resolved_tickets){
-            pw.println("<tr>");
-            pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
-            pw.println("<td> $" + t.getAmount() + "</td>");
-            pw.println("<td> " + t.getResolution_status() + "</td>");
-            pw.println("<td> " + t.getResolution_date() + "</td>");
-            pw.println("</tr>");
+        if(resolved_tickets != null){
+            for( Ticket t : resolved_tickets){
+                String desc = t.getDescription();
+                if(desc == null || desc.isEmpty()){
+                    desc = "N/A";
+                }
+                String reason = t.getResolve_message();
+                if(reason == null || reason.isEmpty()){
+                    reason = "N/A";
+                }
+                pw.println("<tr>");
+                pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
+                pw.println("<td> $" + t.getAmount() + "</td>");
+                pw.println("<td> " + desc + "</td>");
+                pw.println("<td> " + t.getResolution_status() + "</td>");
+                pw.println("<td> " + t.getResolution_date() + "</td>");
+                pw.println("<td> " + reason + "</td>");
+                pw.println("</tr>");
+            }
         }
+
         pw.println("</tbody>");
         pw.println("</table>");
         pw.println("<a href=\"logout\">Log Out</a>");

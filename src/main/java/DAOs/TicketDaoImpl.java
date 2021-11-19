@@ -41,7 +41,7 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public void approveTicket(int t_id) {
+    public void approveTicket(int t_id, String reason) {
         //Create the Config object
         Configuration cfg = new Configuration();
 
@@ -59,6 +59,7 @@ public class TicketDaoImpl implements TicketDao {
 
         //Get the ticket object, modify it
         Ticket ticket = getTicketByID(t_id);
+        ticket.setResolve_message(reason);
         ticket.setPending(false);
         ticket.setResolution_status("Approved");
         ticket.setResolution_date(new Date(System.currentTimeMillis()));
@@ -75,7 +76,7 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public void rejectTicket(int t_id) {
+    public void rejectTicket(int t_id, String reason) {
         //Create the Config object
         Configuration cfg = new Configuration();
 
@@ -93,6 +94,7 @@ public class TicketDaoImpl implements TicketDao {
 
         //Get the ticket object, modify it
         Ticket ticket = getTicketByID(t_id);
+        ticket.setResolve_message(reason);
         ticket.setPending(false);
         ticket.setResolution_status("Rejected");
         ticket.setResolution_date(new Date(System.currentTimeMillis()));
@@ -198,7 +200,7 @@ public class TicketDaoImpl implements TicketDao {
         Query query = session.createQuery(hql);
         query.setParameter("employee_id", empl_id);
         List<Ticket> tickets = query.getResultList();
-
+        System.out.println(tickets);
         //Close the connection
         session.close();
 

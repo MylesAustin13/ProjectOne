@@ -23,6 +23,10 @@ public class RejectTicketServlet extends HttpServlet {
 
         //Get the ticket's ID from the page
         int ticket_id = Integer.parseInt(req.getParameter("t_id"));
+
+        //Get the additional comments
+        String ticket_reason = req.getParameter("t_reason");
+
         //Get the DAO to find the ticket
         TicketDao t_dao = TicketDaoFactory.getTicketDao();
         Ticket ticket = t_dao.getTicketByID(ticket_id);
@@ -30,7 +34,7 @@ public class RejectTicketServlet extends HttpServlet {
 
 
         if(ticket != null){ //If the ticket is found
-            t_dao.rejectTicket(ticket_id);
+            t_dao.rejectTicket(ticket_id, ticket_reason);
             pw.println("<h1 class='text-light text-center'> Ticket rejected! </h1>");
         }
         else{

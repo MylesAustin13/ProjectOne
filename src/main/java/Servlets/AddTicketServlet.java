@@ -22,13 +22,20 @@ public class AddTicketServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter pw = resp.getWriter();
 
-        System.out.println("Going to add an employee...");
+        System.out.println("Going to add a ticket...");
 
 
         //Get the parameters from the request
         HttpSession session = req.getSession(false);
         int empl_id = (Integer) session.getAttribute("empl_id");
         Double ticket_value = Double.parseDouble(req.getParameter("amount"));
+        String desc = "";
+        if(req.getParameter("desc") == null || req.getParameter("desc").isEmpty()){ //If the description is empty or missing
+            desc = "N/A";
+        }
+        else{
+            desc = req.getParameter("desc");
+        }
 
         //Get DAO to find the logged in employee
         EmployeeDao e_dao = EmployeeDaoFactory.getEmployeeDao();
@@ -37,6 +44,7 @@ public class AddTicketServlet extends HttpServlet {
 
         //Create ticket
         Ticket ticket = new Ticket(emp, ticket_value);
+        ticket.setDescription(desc);
 
         //Get the DAO to add the ticket
         TicketDao t_dao = TicketDaoFactory.getTicketDao();

@@ -34,28 +34,43 @@ public class ViewResolvedTicketsServlet extends HttpServlet {
         pw.println("<body class='text-center bg-dark'>");
         pw.println("<h1 class='text-light'> Here are the tickets! </h1>");
         pw.println("<input type='text' class='w-25' id='search_bar' onkeyup='onKeyPress()' placeholder=\"Search for an Employee's name\"/>");
-        pw.println("<table id='ticket_table' class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
+        pw.println("<table id='ticket_table' class='table w-90 table-bordered table-sm table-striped table-hover table-light m-auto'>");
         pw.println("<thead>");
         pw.println("<tr>");
         pw.println("<td scope='col'>ID</td>");
         pw.println("<td scope='col'>Value</td>");
+        pw.println("<td scope='col'>Description</td>");
         pw.println("<td scope='col'>Status</td>");
         pw.println("<td scope='col'>Resolution Date</td>");
+        pw.println("<td scope='col'>Comments from Manager</td>");
         pw.println("<td scope='col'>Employee Name & ID</td>");
         pw.println("<td scope='col'>Employee Email</td>");
         pw.println("</tr>");
         pw.println("</thead>");
         pw.println("<tbody>");
-        for( Ticket t : resolved_tickets){
-            pw.println("<tr>");
-            pw.println("<td scope='row'>" + t.getT_id() + "</td>");
-            pw.println("<td> $" + t.getAmount() + "</td>");
-            pw.println("<td> " + t.getResolution_status() + "</td>");
-            pw.println("<td> " + t.getResolution_date() + "</td>");
-            pw.println("<td> " + t.getEmpl().getUsername() + "<sub>#"  + t.getEmpl().getEmpl_id() + "</sub></td>");
-            pw.println("<td> " + t.getEmpl().getEmail() + "</td>");
-            pw.println("</tr>");
+        if(resolved_tickets != null){
+            for( Ticket t : resolved_tickets){
+                String desc = t.getDescription();
+                if(desc == null || desc.isEmpty()){
+                    desc = "N/A";
+                }
+                String reason = t.getResolve_message();
+                if(reason == null || reason.isEmpty()){
+                    reason = "N/A";
+                }
+                pw.println("<tr>");
+                pw.println("<td scope='row'>" + t.getT_id() + "</td>");
+                pw.println("<td> $" + t.getAmount() + "</td>");
+                pw.println("<td>" + desc + "</td>");
+                pw.println("<td> " + t.getResolution_status() + "</td>");
+                pw.println("<td> " + t.getResolution_date() + "</td>");
+                pw.println("<td>" +  reason + "</td>");
+                pw.println("<td> " + t.getEmpl().getUsername() + "<sub>#"  + t.getEmpl().getEmpl_id() + "</sub></td>");
+                pw.println("<td> " + t.getEmpl().getEmail() + "</td>");
+                pw.println("</tr>");
+            }
         }
+
         pw.println("</tbody>");
         pw.println("</table>");
         pw.println("<a href=\"viewtix\"> View all pending tickets</a>");
@@ -69,7 +84,7 @@ public class ViewResolvedTicketsServlet extends HttpServlet {
         pw.println("var search_text = my_search_bar.value.toUpperCase()"); //Ignore case sensitivity
         pw.println("var rows = my_table.getElementsByTagName('tr');"); //Get all of the rows in the table
         pw.println("for(var i = 1; i < rows.length; i++){");
-        pw.println("let cell = rows[i].getElementsByTagName('td')[4];"); //Get cell with the employee's name
+        pw.println("let cell = rows[i].getElementsByTagName('td')[6];"); //Get cell with the employee's name
         pw.println("if(cell){");
         pw.println("let name_text = cell.textContent || cell.innerText"); //Guard operator
         pw.println("if(name_text.toUpperCase().indexOf(search_text) != -1){"); //If the text is in that name somewhere
