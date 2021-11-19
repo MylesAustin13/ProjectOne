@@ -13,11 +13,11 @@
 <div class="container border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light  w-50">
     <form class="p-2" action="addtix" method="post">
         <p>Ticket</p>
-        <label class="text-left col-2">Reimbursement Amount</label>
-        <input class="text-center" type="number" name="amount" placeholder="Enter the amount you will request">
+        <label class="text-left">Reimbursement Amount</label>
+        <input class="text-center" type="number" step="0.01" min="0" name="amount" placeholder="Enter the amount you will request">
         <br />
         <label> Comments</label>
-        <input type="text" name="desc" placeholder="Enter any comments or concerns">
+        <input type="text" name="desc" placeholder="Enter any comments or concerns"><br />
         <input class="text-center" type="submit" value="Submit Request">
     </form>
 </div>

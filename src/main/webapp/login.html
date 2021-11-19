@@ -1,51 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<head>
-    <meta charset="UTF-8">
-    <title>Log in</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
 
-<body class="bg-dark">
-   
-<div class="container border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50" id="employee">
-    <h1>Employee</h1>
-    <form class="p-2" action="loginempl" method="post">
+    <head>
+        <meta charset="UTF-8">
+        <title>Log in</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Ideas and style code largely inspired by: https://www.w3schools.com/howto/howto_css_sidenav_buttons.asp -->
+        <style>
+            body{
+                font-size: 48px;
+            }
+            ::placeholder{
+                opacity: .3;
+            }
+            #employee {
+                position: absolute;
+                /* Position them relative to the browser window */
+                left: -35%;
+                /* Position them outside of the screen */
+                transition: 0.3s;
+                /* Add transition on hover */
+                padding: 15px;
+                /* 15px padding */
 
-        <label class="text-left col-2">Employee Name</label>
-        <input class="text-center" type="text" name="uname" placeholder="Enter your username">
-        <br />
-        <label class="text-left col-2">Employee Password</label>
-        <input class="text-center" type="text" name="pass" placeholder="Enter your password">
-        <br />
-        <br />
+            }
 
-        <input class="text-center" type="submit" value="Log In">
-    </form>
-</div>
-    
-<div class="container border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50" id="manager">
-    <h1>Manager</h1>
-    <form class="p-2" action="loginmana" method="post">
+            #employee:hover {
+                left: 0;
+            }
 
-        <label class="text-left col-2">Manager Name</label>
-        <input class="text-center" type="text" name="uname" placeholder="Enter your username">
-        <br />
-        <label class="text-left col-2">Manager Password</label>
-        <input class="text-center" type="text" name="pass" placeholder="Enter your password">
-        <br />
-        <br />
+            #manager {
+                position: absolute;
+                /* Position them relative to the browser window */
+                right: -35%;
+                /* Position them outside of the screen */
+                transition: 0.3s;
+                /* Add transition on hover */
+                padding: 15px;
+                /* 15px padding */
 
-        <input class="text-center" type="submit" value="Log In">
-    </form>
-</div>
+            }
 
+            #manager:hover {
+                right: 0;
+            }
+        </style>
+    </head>
+
+    <body class="bg-dark font-size">
+        <div class="row ">
+
+            <div class="container col text-left border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50"
+                id="employee">
+                <div class="row justify-content-start">
+
+                    <div class="col">
+                        
+                        <form class="" action="loginempl" method="post">
+
+                            <label class="text-left">Employee Name</label>
+                            <input class="text-center" type="text" name="uname" placeholder="Enter your username">
+                            <br />
+                            <label class="text-left">Employee Password</label>
+                            <input class="text-center" type="text" name="pass" placeholder="Enter your password">
+                            <br />
+                            <br />
+
+                            <input class="text-center" type="submit" value="Log In">
+                        </form>
+
+                    </div>
+                    <div class="col-sm-3 align-self-center">
+                        <h1> Employee</h1>
+                        <h2>Login</h2>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col">
+
+            </div>
+            <div class="container col text-right border border-4 rounded shadow-sm text-center m-auto mt-3 p-2 bg-light w-50"
+                id="manager">
+                <div class="row justify-content-end">
+                    <div class="col-sm-3 align-self-center">
+                        <h1>Manager</h1>
+                        <h2>Login</h2>
+                    </div>
+                    <div class="col">
+                       
+                        <form class="" action="loginmana" method="post">
+
+                            <label class="text-left">Manager Name</label>
+                            <input class="text-center" type="text" name="uname" placeholder="Enter your username">
+                            <br />
+                            <label class="text-left">Manager Password</label>
+                            <input class="text-center" type="text" name="pass" placeholder="Enter your password">
+                            <br />
+                            <br />
+
+                            <input class="text-center" type="submit" value="Log In">
+                        </form>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </body>
 </body>
-</body>
+
 </html>
