@@ -60,6 +60,11 @@
     <servlet-class>Servlets.RejectTicketServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>viewowntix</servlet-name>
+    <servlet-class>Servlets.ViewOwnTicketsServlet</servlet-class>
+  </servlet>
+
   <!-- *********************************************************************** -->
 
   <servlet-mapping>
@@ -115,5 +120,10 @@
   <servlet-mapping>
     <servlet-name>rejtix</servlet-name>
     <url-pattern>/rejtix</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>viewowntix</servlet-name>
+    <url-pattern>/viewowntix</url-pattern>
   </servlet-mapping>
 </web-app>

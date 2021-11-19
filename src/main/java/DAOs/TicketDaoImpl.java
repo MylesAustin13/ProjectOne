@@ -276,4 +276,37 @@ public class TicketDaoImpl implements TicketDao {
             return tickets;
         }
     }
+
+    @Override
+    public List<Ticket> getAllResolvedTickets() {
+        //Create the Config object
+        Configuration cfg = new Configuration();
+
+        //Read the config file and load it into the Config object
+        cfg.configure("hibernate.cfg.xml");
+
+        //Create the Session Factory
+        SessionFactory sessionFactory = cfg.buildSessionFactory();
+
+        //Use the factory to create a Session
+        Session session = sessionFactory.openSession();
+
+
+        //Set up a query, used named parameters for safety
+        //Source: https://www.tutorialspoint.com/hibernate/hibernate_query_language.htm
+
+        String hql = "from Ticket t where t.pending = false";
+        Query query = session.createQuery(hql);
+        List<Ticket> tickets = query.getResultList();
+
+        //Close the connection
+        session.close();
+
+        if (tickets.isEmpty()){ //The results are empty, found no ticket
+            return null;
+        }
+        else{  //Results not empty, found at least one ticket
+            return tickets;
+        }
+    }
 }
