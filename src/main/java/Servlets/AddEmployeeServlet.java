@@ -39,7 +39,7 @@ public class AddEmployeeServlet extends HttpServlet {
                 "        integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
         pw.println("</head>");
         pw.println("<h1 class='text-light  text-center'> Employee Added! </h1>");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("employee_creation.html");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.html");
         requestDispatcher.include(req, resp);
     }
 }
