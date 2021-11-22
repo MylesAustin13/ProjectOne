@@ -45,7 +45,7 @@ public class LoginManagerServlet extends HttpServlet {
         }
         else{ //Username is right!
             if(m.getPassword().equals(pass)){ //Password is right!
-                HttpSession session = req.getSession(); //Create a new session
+                HttpSession session = req.getSession(true); //Create a new session
                 session.setAttribute("uname",uname);         //Set the name
                 session.setAttribute("email", m.getEmail()); //Set the email
                 session.setAttribute("man_id", m.getMan_id()); //Set the id

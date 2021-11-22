@@ -24,7 +24,12 @@ public class ViewPendingTicketsServlet extends HttpServlet {
         PrintWriter pw = resp.getWriter();
 
         System.out.println("Going to view the pending tickets of an employee...");
-
+        HttpSession session = req.getSession(false);
+        if(session == null){
+            System.out.println("Session invalid.");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.html");
+            requestDispatcher.forward(req, resp);
+        }
 
         //Get the DAO to find all tickets
         TicketDao t_dao = TicketDaoFactory.getTicketDao();
@@ -59,70 +64,75 @@ public class ViewPendingTicketsServlet extends HttpServlet {
 //        }
 //        pw.println("</tbody>");
 //        pw.println("</table>");
-        pw.println("<h1 class='text-light'> Here are the requests! </h1>");
-        pw.println("<input type='text' class='w-25' id='search_bar' onkeyup='onKeyPress()' placeholder=\"Search for an Employee's name\"/>");
-        pw.println("<table id='ticket_table' class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
-        pw.println("<thead>");
-        pw.println("<tr>");
-        pw.println("<td scope='col'>ID</td>");
-        pw.println("<td scope='col'>Value</td>");
-        pw.println("<td scope='col'>Description</td>");
-        pw.println("<td scope='col'>Employee Name & ID</td>");
-        pw.println("<td scope='col'>Employee Email</td>");
-        pw.println("<td scope='col'>Approve</td>");
-        pw.println("<td scope='col'>Reject</td>");
-        pw.println("</tr>");
-        pw.println("</thead>");
-        pw.println("<tbody>");
-        if(all_tickets != null){
-            for( Ticket t : all_tickets){
-                String desc = t.getDescription();
-                if(desc == null || desc.isEmpty()){
-                    desc = "N/A";
+        if(all_tickets == null || all_tickets.isEmpty()){
+            pw.println("<h1 class='text-light'> No pending tickets found.</h1>");
+        }
+        else{
+            pw.println("<h1 class='text-light m-auto'> Here are the requests! </h1>");
+            pw.println("<input type='text' class='w-25' id='search_bar' onkeyup='onKeyPress()' placeholder=\"Search for an Employee's name\"/>");
+            pw.println("<table id='ticket_table' class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
+            pw.println("<thead>");
+            pw.println("<tr>");
+            pw.println("<td scope='col'>ID</td>");
+            pw.println("<td scope='col'>Value</td>");
+            pw.println("<td scope='col'>Employee Name & ID</td>");
+            pw.println("<td scope='col'>Employee Email</td>");
+            pw.println("<td scope='col'>Description</td>");
+            pw.println("<td scope='col'>Approve</td>");
+            pw.println("<td scope='col'>Reject</td>");
+            pw.println("</tr>");
+            pw.println("</thead>");
+            pw.println("<tbody>");
+            if(all_tickets != null){
+                for( Ticket t : all_tickets){
+                    String desc = t.getDescription();
+                    if(desc == null || desc.isEmpty()){
+                        desc = "N/A";
+                    }
+                    pw.println("<tr>");
+                    pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
+                    pw.println("<td> $" + t.getAmount() + "</td>");
+                    pw.println("<td> " + t.getEmpl().getUsername() + "<sub>#"  + t.getEmpl().getEmpl_id() + "</sub></td>");
+                    pw.println("<td> " + t.getEmpl().getEmail() + "</td>");
+                    pw.println("<td> " + desc + "</td>");
+                    pw.println("<td><div class=\"dropdown\">\n" + //Drop down button for approval button
+                            "  <button class=\"btn btn-secondary btn-success\" type='button' id='dropdownMenuButton" + t.getT_id() + "' data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                            " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-check2\" viewBox=\"0 0 16 16\">\n" +
+                            "  <path d=\"M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z\"/>\n" +
+                            "</svg>\n" +
+                            "  </button>\n" +
+                            "  <div class='dropdown-menu text-center' aria-labelledby='dropdownMenuButton" + t.getT_id() + "'>\n" +
+                            "    <form action='apprtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/>\n" +
+                            "    <label>Approve this request?<label/>\n" +
+                            "    <input class='text-center' type='text' name='t_reason' placeholder='Additional Comments'/>\n" +
+                            "    <input type='submit' class='btn-success' value='APPROVE!' />\n" +
+                            "  </form></div>\n" +
+                            "</div></td>");
+                    pw.println("<td><div class=\"dropdown\">\n" + //Drop down button for reject button
+                            "  <button class=\"btn btn-secondary btn-danger\" type='button' id='dropdownMenuButton" + t.getT_id() + "' data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                            " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-x-lg\" viewBox=\"0 0 16 16\">\n" +
+                            "  <path fill-rule=\"evenodd\" d=\"M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z\"/>\n" +
+                            "  <path fill-rule=\"evenodd\" d=\"M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z\"/>\n" +
+                            "</svg>" +
+                            "  </button>\n" +
+                            "  <div class='dropdown-menu text-center' aria-labelledby='dropdownMenuButton" + t.getT_id() + "'>\n" +
+                            "    <form action='rejtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/>\n" +
+                            "    <label>Reject this request?<label/>\n" +
+                            "    <input class='text-center' type='text' name='t_reason' placeholder='Additional Comments'/>\n" +
+                            "    <input type='submit' class='btn-danger' value='REJECT!' />\n" +
+                            "  </form></div>\n" +
+                            "</div></td>");
+                    //pw.println("<td> <form action='apprtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/><input type='image' class='' src='"+ req.getContextPath() + "/img/check-square-fill.svg' onclick='onButtonClick()' name='t_id' /></td></form>");
+                    //pw.println("<td> <form action='rejtix' method='get'> <input type='hidden' name='t_id' value='" + t.getT_id() +"'/><input type='image' class='' src='"+ req.getContextPath() + "/img/x-square-fill.svg' onclick='onButtonClick()' name='t_id' /></td></form>");
+                    pw.println("</tr>");
                 }
-                pw.println("<tr>");
-                pw.println("<td scope='row'>" + t.getT_id() +   "</td>");
-                pw.println("<td> $" + t.getAmount() + "</td>");
-                pw.println("<td> " + desc + "</td>");
-                pw.println("<td> " + t.getEmpl().getUsername() + "<sub>#"  + t.getEmpl().getEmpl_id() + "</sub></td>");
-                pw.println("<td> " + t.getEmpl().getEmail() + "</td>");
-                pw.println("<td><div class=\"dropdown\">\n" + //Drop down button for approval button
-                        "  <button class=\"btn btn-secondary btn-success\" type='button' id='dropdownMenuButton" + t.getT_id() + "' data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-                        " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-check2\" viewBox=\"0 0 16 16\">\n" +
-                        "  <path d=\"M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z\"/>\n" +
-                        "</svg>\n" +
-                        "  </button>\n" +
-                        "  <div class='dropdown-menu text-center' aria-labelledby='dropdownMenuButton" + t.getT_id() + "'>\n" +
-                        "    <form action='apprtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/>\n" +
-                        "    <label>Approve this request?<label/>\n" +
-                        "    <input class='text-center' type='text' name='t_reason' placeholder='Additional Comments'/>\n" +
-                        "    <input type='submit' class='btn-success' value='APPROVE!' />\n" +
-                        "  </form></div>\n" +
-                        "</div></td>");
-                pw.println("<td><div class=\"dropdown\">\n" + //Drop down button for reject button
-                        "  <button class=\"btn btn-secondary btn-danger\" type='button' id='dropdownMenuButton" + t.getT_id() + "' data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-                        " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-x-lg\" viewBox=\"0 0 16 16\">\n" +
-                        "  <path fill-rule=\"evenodd\" d=\"M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z\"/>\n" +
-                        "  <path fill-rule=\"evenodd\" d=\"M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z\"/>\n" +
-                        "</svg>" +
-                        "  </button>\n" +
-                        "  <div class='dropdown-menu text-center' aria-labelledby='dropdownMenuButton" + t.getT_id() + "'>\n" +
-                        "    <form action='rejtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/>\n" +
-                        "    <label>Reject this request?<label/>\n" +
-                        "    <input class='text-center' type='text' name='t_reason' placeholder='Additional Comments'/>\n" +
-                        "    <input type='submit' class='btn-danger' value='REJECT!' />\n" +
-                        "  </form></div>\n" +
-                        "</div></td>");
-                //pw.println("<td> <form action='apprtix' method='get'><input type='hidden' name='t_id' value='" + t.getT_id() +"'/><input type='image' class='' src='"+ req.getContextPath() + "/img/check-square-fill.svg' onclick='onButtonClick()' name='t_id' /></td></form>");
-                //pw.println("<td> <form action='rejtix' method='get'> <input type='hidden' name='t_id' value='" + t.getT_id() +"'/><input type='image' class='' src='"+ req.getContextPath() + "/img/x-square-fill.svg' onclick='onButtonClick()' name='t_id' /></td></form>");
-                pw.println("</tr>");
             }
+
+            pw.println("</tbody>");
+            pw.println("</table>");
         }
 
-        pw.println("</tbody>");
-        pw.println("</table>");
-        pw.println("<a href=\"viewresolvedtix\">View all resolved tickets</a>");
-        pw.println("<a href=\"logout\">Log Out</a>");
+
         //Filter the table for username
         //Idea from W3 schools: source-https://www.w3schools.com/howto/howto_js_filter_table.asp
         pw.println("<script>");
@@ -132,7 +142,7 @@ public class ViewPendingTicketsServlet extends HttpServlet {
             pw.println("var search_text = my_search_bar.value.toUpperCase()"); //Ignore case sensitivity
             pw.println("var rows = my_table.getElementsByTagName('tr');"); //Get all of the rows in the table
             pw.println("for(var i = 1; i < rows.length; i++){");
-                pw.println("let cell = rows[i].getElementsByTagName('td')[3];"); //Get cell with the employee's name
+                pw.println("let cell = rows[i].getElementsByTagName('td')[2];"); //Get cell with the employee's name
                 pw.println("if(cell){");
                     pw.println("let name_text = cell.textContent || cell.innerText"); //Guard operator
                     pw.println("if(name_text.toUpperCase().indexOf(search_text) != -1){"); //If the text is in that name somewhere
@@ -167,7 +177,14 @@ public class ViewPendingTicketsServlet extends HttpServlet {
                 "                            d=\"M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z\" />\n" +
                 "                    </svg>\n" +
                 "                </li>\n" +
-                "                <li class=\"nav-item\">\n" +
+                "                   <li class=\"nav-item\">\n" +
+                "                    <a href=\"manager_choice.html\" class=\"nav-link\">Ticket View Home</a>\n" +
+                "                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-box-arrow-in-left\" viewBox=\"0 0 16 16\">\n" +
+                "                        <path fill-rule=\"evenodd\" d=\"M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z\"/>\n" +
+                "                        <path fill-rule=\"evenodd\" d=\"M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z\"/>\n" +
+                "                      </svg>\n" +
+                "                </li>" +
+                "                   <li class=\"nav-item\">\n" +
                 "\n" +
                 "\n" +
                 "                    <a class='nav-link' href=\"logout\">Log Out</a>\n" +

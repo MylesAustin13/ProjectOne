@@ -17,7 +17,12 @@ public class LogoutServlet extends HttpServlet {
 
         System.out.println("Logging out...");
         //Get the session
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
+        if(session == null){
+            System.out.println("Session invalid.");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.html");
+            requestDispatcher.forward(req, resp);
+        }
         session.invalidate();
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.html"); //Get ready to send the user back to login screen
