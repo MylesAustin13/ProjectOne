@@ -44,7 +44,7 @@ public class ViewResolvedTicketsServlet extends HttpServlet {
             pw.println("<h1 class='text-light m-auto'> No resolved tickets found.</h1>");
         }
         else{
-            pw.println("<h1 class='text-light'> Here are the resolved tickets! </h1>");
+            pw.println("<h1 class='text-light'> Resolved Tickets </h1>");
             pw.println("<input type='text' class='w-25' id='search_bar' onkeyup='onKeyPress()' placeholder=\"Search for an Employee\"/>");
             pw.println("<table id='ticket_table' class='table w-75 shadow table-bordered border-dark rounded-2 table-sm table-striped table-hover table-light m-auto'>");
             pw.println("<thead>");

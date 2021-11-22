@@ -68,7 +68,7 @@ public class ViewPendingTicketsServlet extends HttpServlet {
             pw.println("<h1 class='text-light'> No pending tickets found.</h1>");
         }
         else{
-            pw.println("<h1 class='text-light m-auto'> Here are the requests! </h1>");
+            pw.println("<h1 class='text-light m-auto'> Pending Tickets </h1>");
             pw.println("<input type='text' class='w-25' id='search_bar' onkeyup='onKeyPress()' placeholder=\"Search for an Employee's name\"/>");
             pw.println("<table id='ticket_table' class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
             pw.println("<thead>");

@@ -47,7 +47,7 @@ public class ViewOwnTicketsServlet extends HttpServlet {
             pw.println("<h1 class='text-light m-auto'> You don't have any pending tickets. </h1>");
         }
         else{
-            pw.println("<h1 class='text-light'> Here are your pending tickets! </h1>");
+            pw.println("<h1 class='text-light'> Your Pending Tickets </h1>");
             pw.println("<table class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
             pw.println("<thead>");
             pw.println("<tr>");
@@ -78,7 +78,7 @@ public class ViewOwnTicketsServlet extends HttpServlet {
             pw.println("<h1 class='text-light m-auto'> You don't have any resolved tickets. </h1>");
         }
         else {
-            pw.println("<h1 class='text-light'> Here are your resolved tickets! </h1>");
+            pw.println("<h1 class='text-light'> Your Resolved Tickets </h1>");
             pw.println("<table class='table w-75 table-bordered table-sm table-striped table-hover table-light m-auto'>");
             pw.println("<thead>");
             pw.println("<tr>");
